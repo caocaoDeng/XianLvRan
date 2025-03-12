@@ -4,4 +4,8 @@
 
 <script setup lang="ts"></script>
 
-<style></style>
+<style scoped lang="scss">
+.content {
+  color: $uni-color-primary;
+}
+</style>
