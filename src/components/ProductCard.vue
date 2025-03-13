@@ -1,35 +1,34 @@
 <template>
   <view class="product-card">
-    <view class="cover" :style="{ paddingBottom: mediaInfo.ratio }">
-      <image :src="mediaInfo.src" mode="aspectFill"></image>
+    <view class="cover" :style="{ paddingBottom }">
+      <image :src="info.cover" mode="aspectFill"></image>
       <view v-if="true" class="status">{{ 888 }}</view>
     </view>
-    <text class="title text-truncate-2">{{ value.title }}</text>
-    <text class="price">{{ value.title }}</text>
+    <view class="title text-truncate-2">{{ info.title }}</view>
+    <view class="price">{{ info.price }}</view>
   </view>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
 
-const { value } = defineProps<{
-  value: any
+const { info } = defineProps<{
+  info: any
 }>()
 
-const mediaInfo = computed(() => {
-  const reg = /width=(?<width>.+)&height=(?<height>.+)/ // 捕获组
-  const src = value.fileList[0]
-  const capture = reg.exec(src) as RegExpExecArray
-  const { width, height } = capture?.groups || { width: 400, height: 800 }
-  // 宽高比
-  let ratio: number | string = (+height / +width) * 100
+const paddingBottom = computed(() => {
+  const reg = /width=(?<w>.+)&height=(?<h>.+)/ // 捕获组
+  const capture = reg.exec(info.cover) as RegExpExecArray
+  const { w, h } = capture?.groups || { w: 400, h: 800 }
+  let ratio: number | string = (+h / +w) * 100 // 宽高比
   ratio = ratio > 150 ? '150%' : `${ratio}%`
-  return { src, ratio }
+  return ratio
 })
 </script>
 
 <style scoped lang="scss">
 .product-card {
+  overflow: hidden;
   border-radius: $uni-border-radius-base;
   background-color: #fff;
   .cover {
@@ -60,7 +59,7 @@ const mediaInfo = computed(() => {
   }
   .price {
     color: red;
-    padding: $uni-spacing-col-base $uni-spacing-row-base;
+    padding: 0 $uni-spacing-row-base;
     font-size: $uni-font-size-lg;
     font-weight: 500;
   }
