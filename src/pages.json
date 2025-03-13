@@ -1,11 +1,45 @@
 {
-	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+	"pages": [
 		{
-			"path": "pages/index/index",
+			"path": "pages/market/index",
 			"style": {
+			}
+		},
+		{
+			"path": "pages/profile/index",
+			"style": {
+				"navigationStyle": "custom"
 			}
 		}
 	],
+	"subPackages": [{
+		"root": "subPages",
+		"pages": [
+			{
+				"path": "detail/index",
+				"style":{
+					"navigationStyle": "custom",
+					"disableScroll": true
+				}
+			}
+		]
+	}],
+	"tabBar": {
+		"color": "#999999",
+		"selectedColor": "#1d1d18",
+		"borderStyle": "black",
+		"backgroundColor": "#ffffff",
+		"list": [
+			{
+				"pagePath": "pages/market/index",
+				"text": "市场"
+			},
+			{
+				"pagePath": "pages/profile/index",
+				"text": "我的"
+			}
+	]
+	},
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "鲜绿然",
