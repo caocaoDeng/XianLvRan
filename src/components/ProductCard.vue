@@ -17,7 +17,7 @@ const { info } = defineProps<{
 }>()
 
 const paddingBottom = computed(() => {
-  const reg = /width=(?<w>.+)&height=(?<h>.+)/ // 捕获组
+  const reg = /w=(?<w>.+)&h=(?<h>.+)/ // 捕获组
   const capture = reg.exec(info.cover) as RegExpExecArray
   const { w, h } = capture?.groups || { w: 400, h: 800 }
   let ratio: number | string = (+h / +w) * 100 // 宽高比
