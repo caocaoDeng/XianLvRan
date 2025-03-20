@@ -63,7 +63,7 @@ watch(
       const newData = newVal.slice(oldVal.length)
       waterfallData.value.push(...newData)
       await nextTick()
-      waterfallData.value = await getTranslate(newData)
+      waterfallData.value = [...oldVal, ...(await getTranslate(newData))]
     }
   }
 )
@@ -120,12 +120,11 @@ const getCardHeight = (id: string): Promise<number> => {
  */
 const getTranslate = async (data: any) => {
   const processedData = data.map(async (item: any) => {
-    const itemHight = await getCardHeight(item._id)
-    console.log(itemHight)
+    const itemHeight = await getCardHeight(item._id)
     const actionIndex = colsHeight.value.indexOf(Math.min(...colsHeight.value)) // 需要增加高度的索引
     const offsetTop = colsHeight.value[actionIndex] // y 偏移量
     const offsetLeft = (itemWidth.value + props.gap) * actionIndex // x 偏移量
-    colsHeight.value[actionIndex] += itemHight + props.gap
+    colsHeight.value[actionIndex] += itemHeight + props.gap
     return {
       ...item,
       style: {

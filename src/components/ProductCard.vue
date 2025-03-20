@@ -11,18 +11,16 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import { getSizeForUrl } from '@/utils/index'
 
 const { info } = defineProps<{
   info: any
 }>()
 
 const paddingBottom = computed(() => {
-  const reg = /w=(?<w>.+)&h=(?<h>.+)/ // 捕获组
-  const capture = reg.exec(info.cover) as RegExpExecArray
-  const { w, h } = capture?.groups || { w: 400, h: 800 }
-  let ratio: number | string = (+h / +w) * 100 // 宽高比
-  ratio = ratio > 150 ? '150%' : `${ratio}%`
-  return ratio
+  const { w, h } = getSizeForUrl(info.cover)
+  const ratio = (h / w) * 100 // 宽高比
+  return ratio > 150 ? '150%' : `${ratio}%`
 })
 </script>
 
