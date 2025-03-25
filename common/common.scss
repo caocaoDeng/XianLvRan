@@ -1,0 +1,115 @@
+page {
+  color: $uni-text-color;
+}
+.text-primary {
+  color: $uni-text-color !important;
+}
+.active {
+  color: $uni-text-color !important;
+}
+.font-medium {
+  font-weight: 500;
+}
+.form {
+  display: block;
+  &-item {
+    position: relative;
+    padding: $uni-spacing-col-lg 0;
+    &-label {
+      height: max-content;
+      padding: $uni-spacing-col-base $uni-spacing-row-base
+        $uni-spacing-col-base 0;
+    }
+  }
+  &.inline-block {
+    .form-item {
+      display: flex;
+      &-content {
+        flex: 1;
+      }
+    }
+  }
+}
+.placeholder-color {
+  color: $uni-text-color-placeholder;
+}
+.active-border-b2 {
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 2px;
+    width: 60%;
+    height: 2px;
+    transform: translateX(-50%);
+    border-radius: $uni-border-radius-base;
+    background-color: $theme-color;
+  }
+}
+.hide-scroll::-webkit-scrollbar {
+  display: none;
+}
+.border-t-1,
+.border-b-1 {
+  position: relative;
+}
+.border-t-1::after,
+.border-b-1::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  transform: scaleY(0.2);
+  background-color: $uni-border-color;
+}
+.border-t-1::after {
+  top: 0;
+}
+.border-b-1::before {
+  bottom: 0;
+}
+.flex {
+  display: flex;
+}
+.flex-1 {
+  flex: 1 1 0%;
+}
+.flex-col {
+  flex-direction: column;
+}
+.items-center {
+  align-items: center;
+}
+.justify-center {
+  justify-content: center;
+}
+.justify-around {
+  justify-content: space-around;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.mb-0 {
+  margin-bottom: 0;
+}
+.text-truncate-2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.tag {
+  width: max-content;
+  font-size: $uni-font-size-sm;
+  padding: $uni-spacing-col-sm $uni-spacing-row-base;
+  border-radius: 40rpx;
+  background-color: $uni-bg-color-grey;
+}

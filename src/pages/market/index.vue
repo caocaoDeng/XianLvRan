@@ -1,10 +1,77 @@
 <template>
-  <WaterFall :col="3" :data="data" />
+  <view class="market flex flex-col">
+    <Navbar>
+      <view class="tabs flex items-center">
+        <view
+          v-for="item in tabs"
+          :key="item.value"
+          :class="['tab-item', item.value === tab && 'tab-active']">
+          {{ item.name }}
+        </view>
+      </view>
+    </Navbar>
+    <view class="category">
+      <view class="category-item" v-for="item in category" :key="item.value">{{
+        item.name
+      }}</view>
+    </view>
+    <view class="data-list flex-1">
+      <WaterFall :data="data" />
+    </view>
+  </view>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
+import Navbar from '@/components/Navbar.vue'
 import WaterFall from '@/components/Waterfall.vue'
+
+const tab = ref<(typeof tabs)[number]['value']>('index')
+const tabs = reactive([
+  {
+    name: '首页',
+    value: 'index',
+  },
+  {
+    name: '三农',
+    value: 'support',
+  },
+] as const)
+
+const category = reactive([
+  {
+    name: '推荐',
+    value: '',
+  },
+  {
+    name: '时蔬',
+    value: '',
+  },
+  {
+    name: '鲜果',
+    value: '',
+  },
+  {
+    name: '家禽',
+    value: '',
+  },
+  {
+    name: '肉类',
+    value: '',
+  },
+  {
+    name: '草本',
+    value: '',
+  },
+  {
+    name: '宠物',
+    value: '',
+  },
+  {
+    name: '其他',
+    value: '',
+  },
+] as const)
 
 const data = ref<
   {
@@ -91,4 +158,25 @@ setTimeout(() => {
 }, 1000)
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.market {
+  width: 100vw;
+  height: 100vh;
+}
+.tabs {
+  .tab-item {
+    position: relative;
+    padding: $uni-spacing-col-base $uni-spacing-row-base;
+    &.tab-active {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 88rpx;
+      height: 66rpx;
+      border-radius: 50%;
+      border-bottom: 8rpx;
+    }
+  }
+}
+</style>
