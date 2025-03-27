@@ -1,0 +1,97 @@
+{
+	"bsonType": "object",
+	"required": [],
+	"permission": {
+		"read": true,
+		"create": true,
+		"update": true,
+		"delete": true,
+		"count": true
+	},
+	"properties": {
+		"_id": {
+			"description": "存储文档 ID（用户 ID），系统自动生成"
+		},
+		"openid": {
+			"bsonType": "string",
+			"required": true,
+			"trim": "both",
+			"description": "微信小程序openid",
+			"errorMessage": "openid不能为空"
+		},
+		"session_key": {
+			"bsonType": "string",
+			"required": true,
+			"trim": "both",
+			"description": "微信小程序session_key",
+			"errorMessage": "session_key不能为空"
+		},
+		"username": {
+			"bsonType": "string",
+			"required": true,
+			"trim": "both",
+			"description": "用户名称",
+			"errorMessage": "昵称不能为空"
+		},
+		"avatar": {
+			"bsonType": "string",
+			"required": true,
+			"trim": "both",
+			"description": "头像",
+			"defaultValue": "https://mp-100650ce-3d2d-4645-9348-d5267e5c5957.cdn.bspapp.com/avatar/avatar_default.jpg"
+		},
+		"intro": {
+			"bsonType": "string",
+			"trim": "both",
+			"description": "简介"
+		},
+		"gender": {
+			"bsonType": "int",
+			"description": "性别",
+			"defaultValue": 0,
+			"enum": [{
+				"text": "未知",
+				"value": 0
+			}, {
+				"text": "男",
+				"value": 1
+			}, {
+				"text": "女",
+				"value": 2
+			}]
+		},
+		"status": {
+			"bsonType": "int",
+			"description": "用户状态",
+			"defaultValue": 0,
+			"enum": [{
+				"text": "正常",
+				"value": 0
+			}, {
+				"text": "禁用",
+				"value": 1
+			}]
+		},
+		"mobile": {
+			"bsonType": "string",
+			"required": true,
+			"trim": "both",
+			"description": "手机号码",
+			"pattern": "^\\+?[0-9-]{3,20}$"
+		},
+		"ip": {
+			"bsonType": "string",
+			"description": "首次登录的IP即注册",
+			"forceDefaultValue": {
+				"$env": "clientIP"
+			}
+		},
+		"register_date": {
+			"bsonType": "timestamp",
+			"description": "注册时间",
+			"forceDefaultValue": {
+				"$env": "now"
+			}
+		}
+	}
+}

@@ -22,9 +22,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 import Navbar from '@/components/Navbar.vue'
 import WaterFall from '@/components/Waterfall.vue'
+import { queryProducts, createProducts } from '@/api/index'
 
 const tab = ref<(typeof tabs)[number]['value']>('index')
 const tabs = reactive([
@@ -81,6 +82,30 @@ const data = ref<
     price: number
   }[]
 >([])
+
+onMounted(() => {
+  getProducts()
+  createProduct()
+})
+
+const getProducts = async () => {
+  const res = await queryProducts({})
+  console.log(res)
+}
+
+const createProduct = async () => {
+  const res = await createProducts({
+    userId: 'test',
+    cover:
+      'https://img1.baidu.com/it/u=3178467054,3343174911&fm=253&fmt=auto&app=120&f=JPEG?w=800&h=1067',
+    media: [
+      'https://img1.baidu.com/it/u=3178467054,3343174911&fm=253&fmt=auto&app=120&f=JPEG?w=800&h=1067',
+    ],
+    title: '喜欢就带走哦',
+    description: '自家繁殖',
+  })
+  console.log(res, 888)
+}
 
 setTimeout(() => {
   data.value = [

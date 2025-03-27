@@ -1,7 +1,7 @@
 <template>
   <view class="product-card">
     <view class="cover" :style="{ paddingBottom }">
-      <image :src="info.cover" mode="aspectFill"></image>
+      <image :src="info.cover" mode="widthFix"></image>
       <view v-if="true" class="status">{{ 888 }}</view>
     </view>
     <view class="title text-truncate-2">{{ info.title }}</view>
@@ -30,14 +30,13 @@ const paddingBottom = computed(() => {
   border-radius: $uni-border-radius-base;
   background-color: #fff;
   .cover {
+    overflow: hidden;
     position: relative;
     image {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
-      height: 100%;
-      object-fit: contain;
     }
     .status {
       position: absolute;

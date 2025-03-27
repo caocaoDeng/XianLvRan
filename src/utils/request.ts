@@ -10,7 +10,7 @@ export interface IData<T> {
 
 class Service {
   baseOptions: UniApp.RequestOptions = {
-    url: 'https://fc-mp-100650ce-3d2d-4645-9348-d5267e5c5957.next.bspapp.com',
+    url: 'https://fc-mp-2b3d0f0a-9454-4a66-b360-d34db7d958b8.next.bspapp.com',
     data: {},
     header: {
       'content-type': 'application/json',

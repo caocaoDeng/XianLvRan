@@ -1,0 +1,7 @@
+{
+  "name": "createProduct",
+  "dependencies": {},
+  "extensions": {
+    "uni-cloud-jql": {}
+  }
+}
