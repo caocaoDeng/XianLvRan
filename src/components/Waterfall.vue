@@ -63,7 +63,8 @@ watch(
       const newData = newVal.slice(oldVal.length)
       waterfallData.value.push(...newData)
       await nextTick()
-      waterfallData.value = [...oldVal, ...(await getTranslate(newData))]
+      waterfallData.value = [...oldVal]
+      reRender(newData)
     }
   }
 )
@@ -75,11 +76,19 @@ const init = async () => {
   itemWidth.value = await getCardWidth()
   waterfallData.value = props.data
   await nextTick()
-  waterfallData.value = await getTranslate(props.data)
+  waterfallData.value = []
+  reRender(props.data)
 }
 
 // 初始化col容器
 const initColsHeight = () => new Array(props.col).fill(0)
+
+const reRender = (data: any[]) => {
+  data.forEach(async item => {
+    const transData = await getTranslate(item)
+    waterfallData.value.push(transData)
+  })
+}
 
 /**
  * 根据瀑布流容器的宽度和 gap 算出每一项的宽度
@@ -116,24 +125,21 @@ const getCardHeight = (id: string): Promise<number> => {
 
 /**
  * 计算产品Card偏移的位置，赋值触发重新渲染
- * @param data 产品数据
+ * @param dataItem 产品数据
  */
-const getTranslate = async (data: any) => {
-  const processedData = data.map(async (item: any) => {
-    const itemHeight = await getCardHeight(item._id)
-    const actionIndex = colsHeight.value.indexOf(Math.min(...colsHeight.value)) // 需要增加高度的索引
-    const offsetTop = colsHeight.value[actionIndex] // y 偏移量
-    const offsetLeft = (itemWidth.value + props.gap) * actionIndex // x 偏移量
-    colsHeight.value[actionIndex] += itemHeight + props.gap
-    return {
-      ...item,
-      style: {
-        left: 0,
-        transform: `translate(${offsetLeft}px, ${offsetTop}px)`,
-      },
-    }
-  })
-  return await Promise.all(processedData)
+const getTranslate = async (dataItem: any) => {
+  const itemHeight = await getCardHeight(dataItem._id)
+  const actionIndex = colsHeight.value.indexOf(Math.min(...colsHeight.value)) // 需要增加高度的索引
+  const offsetTop = colsHeight.value[actionIndex] // y 偏移量
+  const offsetLeft = (itemWidth.value + props.gap) * actionIndex // x 偏移量
+  colsHeight.value[actionIndex] += itemHeight + props.gap
+  return {
+    ...dataItem,
+    style: {
+      left: 0,
+      transform: `translate(${offsetLeft}px, ${offsetTop}px)`,
+    },
+  }
 }
 </script>
 
@@ -147,6 +153,8 @@ const getTranslate = async (data: any) => {
     top: 0;
     left: 0;
     width: var(--item-width);
+    opacity: 0;
+    transition: opacity 0.2s;
   }
 }
 </style>

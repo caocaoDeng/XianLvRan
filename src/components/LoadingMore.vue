@@ -3,7 +3,7 @@
     <slot name="icon">
       <view class="icon"></view>
     </slot>
-    <view class="text">{{ isMore ? tipText : waitText }}</view>
+    <view class="text">{{ tipText }}</view>
   </view>
 </template>
 
@@ -12,6 +12,10 @@ import { ref, onMounted, onUnmounted, getCurrentInstance, computed } from 'vue'
 
 const instance = getCurrentInstance()
 const observer = uni.createIntersectionObserver(instance?.proxy)
+
+const emit = defineEmits({
+  observer: (ratio: boolean): void => {},
+})
 
 const props = defineProps({
   isMore: Boolean,
@@ -23,24 +27,19 @@ const props = defineProps({
     type: String,
     default: () => '加载中...',
   },
-  waitText: {
-    type: String,
-    default: () => '上拉加载更多',
-  },
   noMoreText: {
     type: String,
     default: () => '没有更多了',
   },
 })
-const isRatio = ref<boolean>(true)
 
 const tipText = computed(() => {
-  return isRatio.value ? props.text : props.waitText
+  return props.isMore ? props.text : props.noMoreText
 })
 
 onMounted(() => {
   observer.relativeToViewport({ bottom: 100 }).observe('.loading', res => {
-    isRatio.value = res.intersectionRatio < 0
+    emit('observer', res.intersectionRatio < 0)
   })
 })
 
