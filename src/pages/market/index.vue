@@ -1,23 +1,34 @@
 <template>
   <view class="market flex flex-col">
     <Navbar>
-      <view class="tabs flex items-center">
+      <view class="tabs flex items-center font-medium">
         <view
           v-for="item in tabs"
           :key="item.value"
-          :class="['tab-item', item.value === tab && 'tab-active']">
+          :class="['tab-item', item.value === curTab && 'tab-active']">
           {{ item.name }}
         </view>
       </view>
+      <template #ad>
+        <image mode="widthFix" src="@/assets/ad.jpeg" style="width: 100%" />
+      </template>
     </Navbar>
-    <view class="category">
-      <view class="category-item" v-for="item in category" :key="item.value">{{
-        item.name
-      }}</view>
-    </view>
-    <view class="data-list flex-1">
+    <scroll-view class="category" scroll-x :scroll-into-view="curCategory">
+      <view
+        v-for="item in category"
+        :key="item.value"
+        :class="[
+          'category-item',
+          item.value === curCategory && 'category-active',
+        ]"
+        @click="onCategoryChange(item.value)">
+        {{ item.name }}
+      </view>
+    </scroll-view>
+    <scroll-view scroll-y class="data-list flex-1">
       <WaterFall :data="data" />
-    </view>
+      <LoadingMore></LoadingMore>
+    </scroll-view>
   </view>
 </template>
 
@@ -25,9 +36,10 @@
 import { ref, reactive, onMounted } from 'vue'
 import Navbar from '@/components/Navbar.vue'
 import WaterFall from '@/components/Waterfall.vue'
+import LoadingMore from '@/components/LoadingMore.vue'
 import { queryProducts, createProducts } from '@/api/index'
 
-const tab = ref<(typeof tabs)[number]['value']>('index')
+const curTab = ref<(typeof tabs)[number]['value']>('index')
 const tabs = reactive([
   {
     name: '首页',
@@ -39,38 +51,59 @@ const tabs = reactive([
   },
 ] as const)
 
+const curCategory = ref<string>('a')
 const category = reactive([
   {
     name: '推荐',
-    value: '',
+    value: 'a',
   },
   {
     name: '时蔬',
-    value: '',
+    value: 'b',
   },
   {
     name: '鲜果',
-    value: '',
+    value: 'c',
   },
   {
     name: '家禽',
-    value: '',
+    value: 'd',
   },
   {
     name: '肉类',
-    value: '',
+    value: 'e',
   },
   {
     name: '草本',
-    value: '',
+    value: 'f',
   },
   {
     name: '宠物',
-    value: '',
+    value: 'g',
   },
   {
     name: '其他',
-    value: '',
+    value: 'h',
+  },
+  {
+    name: '家禽',
+    value: 'i',
+  },
+  {
+    name: '肉类',
+    value: 'j',
+  },
+  {
+    name: '草本',
+    value: 'k',
+  },
+  {
+    name: '宠物',
+    value: 'l',
+  },
+  {
+    name: '其他',
+    value: 'm',
   },
 ] as const)
 
@@ -84,8 +117,8 @@ const data = ref<
 >([])
 
 onMounted(() => {
-  getProducts()
-  createProduct()
+  // getProducts()
+  // createProduct()
 })
 
 const getProducts = async () => {
@@ -181,6 +214,10 @@ setTimeout(() => {
     },
   ]
 }, 1000)
+
+const onCategoryChange = (value: string) => {
+  curCategory.value = value
+}
 </script>
 
 <style scoped lang="scss">
@@ -189,19 +226,35 @@ setTimeout(() => {
   height: 100vh;
 }
 .tabs {
+  position: relative;
+  color: #000;
+  font-size: 36rpx;
   .tab-item {
-    position: relative;
+    &:first-child {
+      padding-left: 0;
+    }
     padding: $uni-spacing-col-base $uni-spacing-row-base;
     &.tab-active {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 88rpx;
-      height: 66rpx;
-      border-radius: 50%;
-      border-bottom: 8rpx;
+      color: skyblue;
     }
   }
+}
+.category {
+  width: 100%;
+  white-space: nowrap;
+  color: $uni-text-color-grey;
+  &-item {
+    display: inline-block;
+    padding: $uni-spacing-col-base $uni-spacing-row-base;
+    &.category-active {
+      color: $uni-text-color;
+    }
+  }
+}
+.data-list {
+  height: 0;
+  box-sizing: border-box;
+  padding: $uni-spacing-col-sm $uni-spacing-row-sm 0;
+  background-color: $uni-bg-color-grey;
 }
 </style>

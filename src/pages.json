@@ -7,9 +7,21 @@
 			}
 		},
 		{
+			"path": "pages/message/index",
+			"style": {
+				// "navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/backBasket/index",
+			"style": {
+				// "navigationStyle": "custom"
+			}
+		},
+		{
 			"path": "pages/profile/index",
 			"style": {
-				"navigationStyle": "custom"
+				// "navigationStyle": "custom"
 			}
 		}
 	],
@@ -26,24 +38,40 @@
 		]
 	}],
 	"tabBar": {
-		"color": "#999999",
-		"selectedColor": "#1d1d18",
+		"color": "#333333",
+		"selectedColor": "#bbfcff",
 		"borderStyle": "black",
 		"backgroundColor": "#ffffff",
 		"list": [
 			{
 				"pagePath": "pages/market/index",
-				"text": "市场"
+				"text": "市场",
+				"iconPath": "static/tabbar/market.png",
+				"selectedIconPath": "static/tabbar/market_select.png"
+			},
+			{
+				"pagePath": "pages/message/index",
+				"text": "消息",
+				"iconPath": "static/tabbar/message.png",
+				"selectedIconPath": "static/tabbar/message_select.png"
+			},
+			{
+				"pagePath": "pages/backBasket/index",
+				"text": "背篓",
+				"iconPath": "static/tabbar/cart.png",
+				"selectedIconPath": "static/tabbar/cart_select.png"
 			},
 			{
 				"pagePath": "pages/profile/index",
-				"text": "我的"
+				"text": "我的",
+				"iconPath": "static/tabbar/profile.png",
+				"selectedIconPath": "static/tabbar/profile_select.png"
 			}
 	]
 	},
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "鲜绿然",
+		"navigationBarTitleText": "赶场",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
 	}

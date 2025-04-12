@@ -4,4 +4,8 @@ onLaunch(() => {})
 onShow(() => {})
 onHide(() => {})
 </script>
-<style></style>
+
+<style lang="scss">
+@import '@/static/iconfont/iconfont.css';
+@import '@/common/common.scss';
+</style>
