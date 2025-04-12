@@ -10,7 +10,10 @@
         </view>
       </view>
       <template #ad>
-        <image mode="widthFix" src="@/assets/ad.jpeg" style="width: 100%" />
+        <image
+          mode="widthFix"
+          src="@/static/images/ad.jpeg"
+          style="width: 100%" />
       </template>
     </Navbar>
     <scroll-view class="category" scroll-x :scroll-into-view="curCategory">
